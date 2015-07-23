@@ -27,3 +27,5 @@ _testmain.go
 *.swp
 # binary
 gogalert
+# others
+TODO.md
