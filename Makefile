@@ -12,10 +12,15 @@ env:
 	@bash -c ". ~/.envirius/nv && nv use ${ENVNAME}"
 
 build:
-	@go build -a -tags netgo --ldflags '-s -extldflags "-lm -lstdc++ -static"' -i -o ${EXEC}
+	@go build -a -tags netgo \
+			--ldflags '-s -extldflags "-lm -lstdc++ -static"' \
+			-i -o ${EXEC}
 
 run:
-	@go run gogalert.go
+	@go run gogalert.go \
+		--file=ganglia-responses/ganglia-meta-response.xml \
+		--metric=mem_free \
+		--list-clusters
 
 runxml:
 	@gogalert response/test.xml disk_free
