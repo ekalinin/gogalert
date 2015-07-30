@@ -4,8 +4,8 @@ import (
 	"../response"
 	"bytes"
 	"encoding/xml"
+	"errors"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"net"
 	"os"
@@ -13,29 +13,35 @@ import (
 	"strings"
 )
 
-// Read xml file & parse it
-func ParseFile(path string) response.GMetaResponse {
-
-	xmlFile, err := os.Open(path)
-	CheckError(err)
-	defer xmlFile.Close()
-
-	return (readAndParse(xmlFile))
+type DataSource struct {
+	Path string
+	Host string
+	Port int
 }
 
-// Read xml from socket & parse it
-func ParseSocket(host string, port int) response.GMetaResponse {
-	connectString := []string{host, strconv.Itoa(port)}
+func (this *DataSource) Read() ([]byte, error) {
 
-	conn, err := net.Dial("tcp", strings.Join(connectString, ":"))
-	CheckError(err)
-	defer conn.Close()
+	if this.Path != "" {
+		xmlFile, err := os.Open(this.Path)
+		CheckError(err)
+		defer xmlFile.Close()
+		return ioutil.ReadAll(xmlFile)
+	}
 
-	return (readAndParse(conn))
+	if this.Host != "" {
+		connectString := []string{this.Host, strconv.Itoa(this.Port)}
+		conn, err := net.Dial("tcp", strings.Join(connectString, ":"))
+		CheckError(err)
+		defer conn.Close()
+		return ioutil.ReadAll(conn)
+	}
+
+	return []byte{}, errors.New("Not a file nor a socket!")
 }
 
-func readAndParse(r io.Reader) response.GMetaResponse {
-	xmlData, err := ioutil.ReadAll(r)
+// Parses XML fetched from source
+func Parse(source *DataSource) response.GMetaResponse {
+	xmlData, err := source.Read()
 	CheckError(err)
 
 	return (ParseXML(xmlData))
