@@ -1,4 +1,4 @@
-EXEC=gogalert
+EXEC=gogalert.bin
 ENVNAME=gogalert1.5beta2
 
 get-deps:
