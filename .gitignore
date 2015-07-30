@@ -26,7 +26,7 @@ _testmain.go
 # vim files
 *.swp
 # binary
-gogalert
+gogalert.bin
 # others
 TODO.md
 ganglia-responses/*
