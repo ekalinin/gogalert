@@ -13,8 +13,8 @@ type GMetaResponse struct {
 }
 
 func (self GMetaResponse) String() string {
-	return fmt.Sprintf("Resp: Version=%s Source=%s Grids=%s",
-		self.Version, self.Source, self.Grids)
+	return fmt.Sprintf("Resp: Version=%s Source=%s",
+		self.Version, self.Source)
 }
 
 // List of grid in the Ganglia's Meta deamon's response
@@ -53,8 +53,8 @@ func (self GCluster) PrintNested() string {
 }
 
 func (self GCluster) String() string {
-	return fmt.Sprintf("Cluster: Name=%s Time=%s Url=%s",
-		self.Name, self.Localtime, self.Url)
+	return fmt.Sprintf("Cluster: Name=%s Time=%s Owner=%s LatLong=%s Url=%s",
+		self.Name, self.Localtime, self.Owner, self.LatLong, self.Url)
 }
 
 // List of hosts in each cluster
@@ -78,8 +78,8 @@ func (self GHost) PrintNested() string {
 }
 
 func (self GHost) String() string {
-	return fmt.Sprintf("Host: Name=%s IP=%s Reported=%s Location=%s Tn=%s",
-		self.Name, self.IP, self.Reported, self.Location, self.Tn)
+	return fmt.Sprintf("Host: Name=%s IP=%s Reported=%s Tn=%s Tmax=%s Dmax=%s Location=%s GMonStarted=%s Tags=%s",
+		self.Name, self.IP, self.Reported, self.Tn, self.Tmax, self.Dmax, self.Location, self.GMonStarted, self.Tags)
 }
 
 // List of metrics in each cluster
