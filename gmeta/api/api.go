@@ -1,11 +1,11 @@
 package api
 
 import (
-	"../response"
 	"bytes"
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"github.com/ekalinin/gogalert/gmeta/response"
 	"io/ioutil"
 	"net"
 	"os"

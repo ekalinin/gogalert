@@ -1,9 +1,9 @@
 package deamon
 
 import (
-	"../gmeta/api"
-	"../gmeta/response"
 	"fmt"
+	"github.com/ekalinin/gogalert/gmeta/api"
+	"github.com/ekalinin/gogalert/gmeta/response"
 	"time"
 )
 
