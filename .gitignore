@@ -30,3 +30,4 @@ gogalert.bin
 # others
 TODO.md
 ganglia-responses/*
+coverage.out
