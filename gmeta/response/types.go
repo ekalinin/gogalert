@@ -26,11 +26,6 @@ type GGrid struct {
 	Clusters  []GCluster `xml:"CLUSTER"`
 }
 
-func (self GGrid) PrintNested() string {
-	return fmt.Sprintf("\n\t Grid: Name=%s Auth=%s Time=%s Clusters=%s",
-		self.Name, self.Authority, self.Localtime, self.Clusters)
-}
-
 func (self GGrid) String() string {
 	return fmt.Sprintf("Grid: Name=%s Auth=%s Time=%s",
 		self.Name, self.Authority, self.Localtime)
@@ -45,11 +40,6 @@ type GCluster struct {
 	LatLong   string   `xml:"LATLONG,attr"`
 	Url       string   `xml:"URL,attr"`
 	Hosts     []GHost  `xml:"HOST"`
-}
-
-func (self GCluster) PrintNested() string {
-	return fmt.Sprintf("\n\t\t Cluster: Name=%s Time=%s Url=%s Hosts=%s",
-		self.Name, self.Localtime, self.Url, self.Hosts)
 }
 
 func (self GCluster) String() string {
@@ -72,11 +62,6 @@ type GHost struct {
 	Metrics     []GMetric `xml:"METRIC"`
 }
 
-func (self GHost) PrintNested() string {
-	return fmt.Sprintf("\n\t\t\t Host: Name=%s IP=%s Time=%s Tn=%s Metrics=%s",
-		self.Name, self.IP, self.Reported, self.Tn, self.Metrics)
-}
-
 func (self GHost) String() string {
 	return fmt.Sprintf("Host: Name=%s IP=%s Reported=%s Tn=%s Tmax=%s Dmax=%s Location=%s GMonStarted=%s Tags=%s",
 		self.Name, self.IP, self.Reported, self.Tn, self.Tmax, self.Dmax, self.Location, self.GMonStarted, self.Tags)
@@ -95,11 +80,6 @@ type GMetric struct {
 	Slope   string   `xml:"SLOPE,attr"`
 	Source  string   `xml:"SOURCE,attr"`
 	Extra   GExtra   `xml:"EXTRA_DATA"`
-}
-
-func (self GMetric) PrintNested() string {
-	return fmt.Sprintf("\n\t\t\t\t Metric: Name=%s Val=%s Type=%s Units=%s",
-		self.Name, self.Val, self.Type, self.Units)
 }
 
 func (self GMetric) String() string {
