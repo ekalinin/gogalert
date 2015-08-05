@@ -47,14 +47,18 @@ func Test_Types(t *testing.T) {
 	if host.String() != "Host: Name=example.com IP=127.0.0.1 Reported=1436989274 Tn=9 Tmax=20 Dmax=0 Location=unspecified GMonStarted=1411930720 Tags=unspecified" {
 		t.Error("Wrong cluster", host)
 	}
-	if host.Metrics[0].String() != "Metric: Name=disk_free Val=1106.528 Type=double Units=GB Tn=117 Tmax=180 Dmax=0 Slope=both Source=gmond" {
-		t.Error("Wrong metric", host.Metrics[0])
-	}
 	if len(host.Metrics) != 2 {
 		t.Error("Wrong number of metrics", len(host.Metrics))
 	}
 	metric := host.Metrics[0]
-	if len(metric.Extra.Elements) != 3 {
-		t.Error("Wrong number of extra elements", len(metric.Extra.Elements))
+	if metric.String() != "Metric: Name=disk_free Val=1106.528 Type=double Units=GB Tn=117 Tmax=180 Dmax=0 Slope=both Source=gmond" {
+		t.Error("Wrong metric", metric)
+	}
+	elements := metric.Extra.Elements
+	if len(elements) != 3 {
+		t.Error("Wrong number of extra elements", len(elements))
+	}
+	if elements[0].Name != "GROUP" && elements[0].Val != "disk" {
+		t.Error("Wrong Element", elements[0])
 	}
 }
