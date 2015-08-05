@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./gogalert/deamon"
-	"./gogalert/ganglia/api"
-	"./gogalert/ganglia/response"
+	"./deamon"
+	"./gmeta/api"
+	"./gmeta/response"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 

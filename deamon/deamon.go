@@ -1,8 +1,8 @@
 package deamon
 
 import (
-	"../ganglia/api"
-	"../ganglia/response"
+	"../gmeta/api"
+	"../gmeta/response"
 	"fmt"
 	"time"
 )
