@@ -10,41 +10,20 @@ func Test_Types(t *testing.T) {
 		<GRID NAME="unspecified" AUTHORITY="http://monitor.example.com/ganglia/" LOCALTIME="1436989284">
 			<CLUSTER NAME="cluster-example.com" LOCALTIME="1436989282" OWNER="example" LATLONG="100" URL="200">
 				<HOST NAME="example.com" IP="127.0.0.1" REPORTED="1436989274" TN="9" TMAX="20" DMAX="0" LOCATION="unspecified" GMOND_STARTED="1411930720" TAGS="unspecified">
-				<METRIC NAME="disk_free" VAL="1106.528" TYPE="double" UNITS="GB" TN="117" TMAX="180" DMAX="0" SLOPE="both" SOURCE="gmond">
-				<EXTRA_DATA>
-				<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
-				<EXTRA_ELEMENT NAME="DESC" VAL="Total free disk space"/>
-				<EXTRA_ELEMENT NAME="TITLE" VAL="Disk Space Available"/>
-				</EXTRA_DATA>
-				</METRIC>
-				<METRIC NAME="bytes_out" VAL="7167.18" TYPE="float" UNITS="bytes/sec" TN="277" TMAX="300" DMAX="0" SLOPE="both" SOURCE="gmond">
-				<EXTRA_DATA>
-				<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
-				<EXTRA_ELEMENT NAME="DESC" VAL="Number of bytes out per second"/>
-				<EXTRA_ELEMENT NAME="TITLE" VAL="Bytes Sent"/>
-				</EXTRA_DATA>
-				</METRIC>
-				<METRIC NAME="disk_free" VAL="945.966" TYPE="double" UNITS="GB" TN="80" TMAX="180" DMAX="0" SLOPE="both" SOURCE="gmond">
-				<EXTRA_DATA>
-				<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
-				<EXTRA_ELEMENT NAME="DESC" VAL="Total free disk space"/>
-				<EXTRA_ELEMENT NAME="TITLE" VAL="Disk Space Available"/>
-				</EXTRA_DATA>
-				</METRIC>
-				<METRIC NAME="swap_total" VAL="2102460" TYPE="float" UNITS="KB" TN="21" TMAX="1200" DMAX="0" SLOPE="zero" SOURCE="gmond">
-				<EXTRA_DATA>
-				<EXTRA_ELEMENT NAME="GROUP" VAL="memory"/>
-				<EXTRA_ELEMENT NAME="DESC" VAL="Total amount of swap space displayed in KBs"/>
-				<EXTRA_ELEMENT NAME="TITLE" VAL="Swap Space Total"/>
-				</EXTRA_DATA>
-				</METRIC>
-				<METRIC NAME="part_max_used" VAL="60.5" TYPE="float" UNITS="%" TN="80" TMAX="180" DMAX="0" SLOPE="both" SOURCE="gmond">
-				<EXTRA_DATA>
-				<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
-				<EXTRA_ELEMENT NAME="DESC" VAL="Maximum percent used for all partitions"/>
-				<EXTRA_ELEMENT NAME="TITLE" VAL="Maximum Disk Space Used"/>
-				</EXTRA_DATA>
-				</METRIC>
+					<METRIC NAME="disk_free" VAL="1106.528" TYPE="double" UNITS="GB" TN="117" TMAX="180" DMAX="0" SLOPE="both" SOURCE="gmond">
+						<EXTRA_DATA>
+						<EXTRA_ELEMENT NAME="GROUP" VAL="disk"/>
+						<EXTRA_ELEMENT NAME="DESC" VAL="Total free disk space"/>
+						<EXTRA_ELEMENT NAME="TITLE" VAL="Disk Space Available"/>
+						</EXTRA_DATA>
+					</METRIC>
+					<METRIC NAME="bytes_out" VAL="7167.18" TYPE="float" UNITS="bytes/sec" TN="277" TMAX="300" DMAX="0" SLOPE="both" SOURCE="gmond">
+						<EXTRA_DATA>
+						<EXTRA_ELEMENT NAME="GROUP" VAL="network"/>
+						<EXTRA_ELEMENT NAME="DESC" VAL="Number of bytes out per second"/>
+						<EXTRA_ELEMENT NAME="TITLE" VAL="Bytes Sent"/>
+						</EXTRA_DATA>
+					</METRIC>
 				</HOST>
 			</CLUSTER>
 		</GRID>
@@ -67,5 +46,15 @@ func Test_Types(t *testing.T) {
 	host := cluster.Hosts[0]
 	if host.String() != "Host: Name=example.com IP=127.0.0.1 Reported=1436989274 Tn=9 Tmax=20 Dmax=0 Location=unspecified GMonStarted=1411930720 Tags=unspecified" {
 		t.Error("Wrong cluster", host)
+	}
+	if host.Metrics[0].String() != "Metric: Name=disk_free Val=1106.528 Type=double Units=GB Tn=117 Tmax=180 Dmax=0 Slope=both Source=gmond" {
+		t.Error("Wrong metric", host.Metrics[0])
+	}
+	if len(host.Metrics) != 2 {
+		t.Error("Wrong number of metrics", len(host.Metrics))
+	}
+	metric := host.Metrics[0]
+	if len(metric.Extra.Elements) != 3 {
+		t.Error("Wrong number of extra elements", len(metric.Extra.Elements))
 	}
 }

@@ -103,8 +103,8 @@ func (self GMetric) PrintNested() string {
 }
 
 func (self GMetric) String() string {
-	return fmt.Sprintf("Metric: Name=%s Val=%s Type=%s Units=%s",
-		self.Name, self.Val, self.Type, self.Units)
+	return fmt.Sprintf("Metric: Name=%s Val=%s Type=%s Units=%s Tn=%s Tmax=%s Dmax=%s Slope=%s Source=%s",
+		self.Name, self.Val, self.Type, self.Units, self.Tn, self.Tmax, self.Dmax, self.Slope, self.Source)
 }
 
 // Extra values for each metric
