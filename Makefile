@@ -1,8 +1,9 @@
 NAME=gogalert
 EXEC=${NAME}.bin
-GOVER=1.5beta3
+GOVER=1.5rc1
 ENVNAME=${NAME}${GOVER}
-GHNAME=github.com/ekalinin/${NAME}
+GHBASE=github.com/ekalinin
+GHNAME=${GHBASE}/${NAME}
 
 get-deps:
 	@go get gopkg.in/alecthomas/kingpin.v2
@@ -15,11 +16,11 @@ env:
 	@bash -c ". ~/.envirius/nv && nv use ${ENVNAME}"
 
 env-fix:
-	@if [ -d "$GOPATH/src/${GHNAME}" ]; then \
-		mkdir -p $GOPATH/src/${GHNAME}; \
-		ln -s `pwd` $GOPATH/src/{$GHNAME}; \
-	else \
+	@if [ -d "${GOPATH}/src/${GHNAME}" ]; then \
 		echo "Already fixed. No actions need."; \
+	else \
+		mkdir -p ${GOPATH}/src/${GHBASE}; \
+		ln -s `pwd` ${GOPATH}/src/${GHBASE}; \
 	fi
 
 build:
