@@ -65,7 +65,7 @@ func (self GMetaResponse) Find(filter *MetricFilter) []MetricFlat {
 						continue
 					}
 
-					if filter.Condition != "" && filter.Condition != "" {
+					if filter.Condition != "" {
 						currVal, _ := strconv.ParseFloat(currMetric.Val, 32)
 						threshhold := float32(filter.Threshhold)
 						if !ValidateCondition(float32(currVal), filter.Condition, threshhold) {
