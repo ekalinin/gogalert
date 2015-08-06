@@ -5,23 +5,34 @@ ENVNAME=${NAME}${GOVER}
 GHBASE=github.com/ekalinin
 GHNAME=${GHBASE}/${NAME}
 
-get-deps:
+deps:
 	@go get gopkg.in/alecthomas/kingpin.v2
 
 # with https://github.com/ekalinin/envirius
-env-init:
+env-create:
 	@bash -c ". ~/.envirius/nv && nv mk ${ENVNAME} --go-prebuilt=${GOVER}"
 
-env:
-	@bash -c ". ~/.envirius/nv && nv use ${ENVNAME}"
-
 env-fix:
+	@bash -c ". ~/.envirius/nv && nv do ${ENVNAME} 'make env-fix-paths'"
+
+env-fix-paths:
 	@if [ -d "${GOPATH}/src/${GHNAME}" ]; then \
 		echo "Already fixed. No actions need."; \
 	else \
 		mkdir -p ${GOPATH}/src/${GHBASE}; \
 		ln -s `pwd` ${GOPATH}/src/${GHBASE}; \
 	fi
+
+env-deps:
+	@bash -c ". ~/.envirius/nv && nv do ${ENVNAME} 'make deps'"
+
+env-build:
+	@bash -c ". ~/.envirius/nv && nv do ${ENVNAME} 'make build'"
+
+env-init: env-create env-fix env-deps
+
+env:
+	@bash -c ". ~/.envirius/nv && nv use ${ENVNAME}"
 
 build:
 	@go build -a -tags netgo \
