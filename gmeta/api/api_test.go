@@ -2,8 +2,8 @@ package api
 
 import "testing"
 
-func Test_Parse(t *testing.T) {
-	testXml := []byte(`<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+var (
+	testXml = []byte(`<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 		<!DOCTYPE GANGLIA_XML [
 		<!ELEMENT GANGLIA_XML (GRID|CLUSTER|HOST)*>
 		<!ATTLIST GANGLIA_XML VERSION CDATA #REQUIRED>
@@ -98,6 +98,9 @@ func Test_Parse(t *testing.T) {
 		</CLUSTER>
 		</GRID>
 		</GANGLIA_XML>`)
+)
+
+func Test_ParseXML(t *testing.T) {
 	resXml := ParseXML(testXml)
 	if resXml.Version != "3.6.0" {
 		t.Error("Wrong Version")
@@ -115,4 +118,8 @@ func Test_Parse(t *testing.T) {
 	if grid.Authority != "http://monitor.example.com/ganglia/" {
 		t.Error("Wrong Authority of the grid")
 	}
+}
+
+func Test_Parse(t *testing.T) {
+
 }
