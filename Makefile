@@ -1,5 +1,5 @@
 NAME=gogalert
-EXEC=${NAME}.bin
+EXEC=${NAME}
 GOVER=1.5rc1
 ENVNAME=${NAME}${GOVER}
 GHBASE=github.com/ekalinin
