@@ -29,5 +29,5 @@ _testmain.go
 gogalert
 # others
 TODO.md
-ganglia-responses/*
+.ganglia-responses/*
 coverage.out
