@@ -2,8 +2,7 @@ package deamon
 
 import (
 	"fmt"
-	"github.com/ekalinin/gogalert/gmeta/api"
-	"github.com/ekalinin/gogalert/gmeta/response"
+	"github.com/ekalinin/gogalert/api"
 	"time"
 )
 
@@ -13,10 +12,10 @@ type StatServer struct {
 	// Source of the XML data
 	source *api.DataSource
 	// threshholds
-	threshholds *response.MetricFilter
+	threshholds *api.MetricFilter
 }
 
-func NewStatServer(source *api.DataSource, threshholds *response.MetricFilter) *StatServer {
+func NewStatServer(source *api.DataSource, threshholds *api.MetricFilter) *StatServer {
 	return &StatServer{2 * time.Minute, source, threshholds}
 }
 

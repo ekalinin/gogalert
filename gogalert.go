@@ -1,9 +1,8 @@
 package main
 
 import (
+	"github.com/ekalinin/gogalert/api"
 	"github.com/ekalinin/gogalert/deamon"
-	"github.com/ekalinin/gogalert/gmeta/api"
-	"github.com/ekalinin/gogalert/gmeta/response"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -23,6 +22,8 @@ var (
 	listMetric   = kingpin.Flag("list-metrics", "List metrics").Bool()
 	listNodes    = kingpin.Flag("list-nodes", "List nodes").Bool()
 	listClusters = kingpin.Flag("list-clusters", "List clusters").Bool()
+	// config
+	configFile = kingpin.Flag("config", "Configuration file").ExistingFile()
 	// deamon mode
 	deamonMode = kingpin.Flag("deamon", "Run in deamon mode").Bool()
 )
@@ -31,7 +32,7 @@ func main() {
 
 	kingpin.Parse()
 
-	filter := &response.MetricFilter{*metric, *node, *cluster, *condition, *threshhold}
+	filter := &api.MetricFilter{*metric, *node, *cluster, *condition, *threshhold}
 	source := &api.DataSource{*localPath, *remoteHost, *remotePort}
 
 	if *deamonMode {

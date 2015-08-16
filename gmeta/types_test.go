@@ -1,4 +1,4 @@
-package response
+package gmeta
 
 import "testing"
 import "encoding/xml"

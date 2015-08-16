@@ -1,6 +1,7 @@
-package response
+package gmeta
 
 import (
+	"bytes"
 	"encoding/xml"
 	"fmt"
 )
@@ -98,4 +99,20 @@ type GElement struct {
 	XMLName xml.Name `xml:"EXTRA_ELEMENT"`
 	Name    string   `xml:"NAME,attr"`
 	Val     string   `xml:"VAL,attr"`
+}
+
+// Parse input xml text
+func Parse(xmlbody []byte) GMetaResponse {
+	var resp GMetaResponse
+	var xmlClear []byte
+
+	// Exclude part of xml
+	ganglia_xml_start_idx := bytes.Index(xmlbody, []byte("<GANGLIA_XML"))
+	if ganglia_xml_start_idx == -1 {
+		xmlClear = xmlbody
+	} else {
+		xmlClear = xmlbody[ganglia_xml_start_idx:]
+	}
+	xml.Unmarshal(xmlClear, &resp)
+	return resp
 }
