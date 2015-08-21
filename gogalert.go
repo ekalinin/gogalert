@@ -36,7 +36,7 @@ func main() {
 	source := &api.DataSource{*localPath, *remoteHost, *remotePort}
 
 	if *deamonMode {
-		deamon.NewStatServer(source, filter).Start()
+		deamon.NewStatServer(source, filter, *configFile).Start()
 	} else {
 		s := api.NewGSet()
 		for _, metric := range api.Parse(source).Find(filter) {
