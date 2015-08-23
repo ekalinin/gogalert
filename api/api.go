@@ -55,7 +55,16 @@ type MetricFilter struct {
 	HostName    string
 	ClusterName string
 	Condition   string
-	Threshhold  int
+	Threshhold  string
+}
+
+func NewMetricFilter(filter []string) *MetricFilter {
+	return &MetricFilter{
+		/* MetricName */ filter[2],
+		/* HostName	*/ strings.Replace(filter[1], "*", "", -1),
+		/* ClusterName */ strings.Replace(filter[0], "*", "", -1),
+		/* Condition */ filter[3],
+		/* Threshhold */ filter[4]}
 }
 
 // Parses XML fetched from source
@@ -94,9 +103,15 @@ func (self *GMetaWrapper) Find(filter *MetricFilter) []MetricFlat {
 					}
 
 					if filter.Condition != "" {
-						currVal, _ := strconv.ParseFloat(currMetric.Val, 32)
-						threshhold := float32(filter.Threshhold)
-						if !ValidateCondition(float32(currVal), filter.Condition, threshhold) {
+						currVal, err := strconv.ParseFloat(currMetric.Val, 32)
+						if err != nil {
+							panic(fmt.Sprintf("cannot parse float %s: %v", currMetric.Val, err))
+						}
+						threshhold, err := strconv.ParseFloat(filter.Threshhold, 32)
+						if err != nil {
+							panic(fmt.Sprintf("cannot parse float %s: %v", filter.Threshhold, err))
+						}
+						if !ValidateCondition(float32(currVal), filter.Condition, float32(threshhold)) {
 							continue
 						}
 					}
@@ -117,13 +132,23 @@ func ValidateCondition(val float32, condition string, threshhold float32) bool {
 	switch condition {
 	case "eq":
 		res = val == threshhold
+	case "==":
+		res = val == threshhold
 	case "gt":
+		res = val > threshhold
+	case ">":
 		res = val > threshhold
 	case "ge":
 		res = val >= threshhold
+	case ">=":
+		res = val >= threshhold
 	case "lt":
 		res = val < threshhold
+	case "<":
+		res = val < threshhold
 	case "le":
+		res = val <= threshhold
+	case "<=":
 		res = val <= threshhold
 	}
 	//fmt.Printf("%v %v %v --> %v\n", val, condition, threshhold, res)
