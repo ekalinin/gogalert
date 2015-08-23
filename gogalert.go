@@ -12,7 +12,7 @@ var (
 	cluster = kingpin.Flag("cluster", "Cluster name to search").String()
 	metric  = kingpin.Flag("metric", "Metric name to search").String()
 	// conditions
-	threshhold = kingpin.Flag("threshhold", "Threshhold value").Int()
+	threshhold = kingpin.Flag("threshhold", "Threshhold value").String()
 	condition  = kingpin.Flag("condition", "Condition").Enum("eq", "gt", "ge", "lt", "le")
 	// source of the xml
 	localPath  = kingpin.Flag("file", "Read gmeta response from local file").ExistingFile()
