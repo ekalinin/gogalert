@@ -62,8 +62,13 @@ func (this *StatServer) Start() error {
 }
 
 func (this *StatServer) CollectStats() {
-	fmt.Println(" Server: collecting data ...")
-	for _, metric := range api.Parse(this.source).Find(this.threshholds) {
-		fmt.Println(" >> Alert: ", metric.GMetric)
+	fmt.Println("Collecting data ...")
+	metrics := api.Parse(this.source)
+
+	for _, check := range this.config.Checks {
+		for _, metricFailed := range metrics.Find(api.NewMetricFilter(check)) {
+			fmt.Println(" >> Alert: ", metricFailed.GMetric, " :: ",
+				metricFailed.GHost.Name)
+		}
 	}
 }
