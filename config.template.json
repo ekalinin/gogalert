@@ -1,0 +1,16 @@
+{
+    "email": {
+        "from": "ganglia.some.host.com",
+        "to": "admin@some.host.com",
+        "title": "Gogalert: {{.Host}} — {{.AlertName}}",
+        "body": "{{.Metric}} {{.Condition}} {{.Threshhold}}"
+    },
+    "interval": 60,
+    "debug": false,
+    "pid": "/var/run/gogalert.pid",
+    "logfile": "/var/log/gogalert.log",
+    "checks": [
+          [ "*", "*", "part_max_used", ">", "70" ]
+        , [ "*", "*", "load_one", ">=", "2.5" ]
+    ]
+}
