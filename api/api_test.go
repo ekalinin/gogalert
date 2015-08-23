@@ -211,37 +211,37 @@ func Test_GMetaResponseFind(t *testing.T) {
 	xml.Unmarshal(testXml, &tmpXml)
 	resXml := &GMetaWrapper{tmpXml}
 
-	if resp := len(resXml.Find(&MetricFilter{"", "", "", "", 0})); resp != 4 {
+	if resp := len(resXml.Find(&MetricFilter{"", "", "", "", ""})); resp != 4 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"disk_free", "", "", "", 0})); resp != 1 {
+	if resp := len(resXml.Find(&MetricFilter{"disk_free", "", "", "", ""})); resp != 1 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"disk_free!!", "", "", "", 0})); resp != 0 {
+	if resp := len(resXml.Find(&MetricFilter{"disk_free!!", "", "", "", ""})); resp != 0 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"", "example.com", "", "", 0})); resp != 4 {
+	if resp := len(resXml.Find(&MetricFilter{"", "example.com", "", "", ""})); resp != 4 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"", "example.com!", "", "", 0})); resp != 0 {
+	if resp := len(resXml.Find(&MetricFilter{"", "example.com!", "", "", ""})); resp != 0 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"disk_free", "example.com", "", "", 0})); resp != 1 {
+	if resp := len(resXml.Find(&MetricFilter{"disk_free", "example.com", "", "", ""})); resp != 1 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"", "", "cluster-example.com", "", 0})); resp != 4 {
+	if resp := len(resXml.Find(&MetricFilter{"", "", "cluster-example.com", "", ""})); resp != 4 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"", "", "cluster-example.com!", "", 0})); resp != 0 {
+	if resp := len(resXml.Find(&MetricFilter{"", "", "cluster-example.com!", "", ""})); resp != 0 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"swap_total", "", "cluster-example.com", "", 0})); resp != 1 {
+	if resp := len(resXml.Find(&MetricFilter{"swap_total", "", "cluster-example.com", "", ""})); resp != 1 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"", "", "", "gt", 100})); resp != 3 {
+	if resp := len(resXml.Find(&MetricFilter{"", "", "", "gt", "100"})); resp != 3 {
 		t.Error("Wrong response length: ", resp)
 	}
-	if resp := len(resXml.Find(&MetricFilter{"part_max_used", "", "", "gt", 80})); resp != 0 {
+	if resp := len(resXml.Find(&MetricFilter{"part_max_used", "", "", "gt", "80"})); resp != 0 {
 		t.Error("Wrong response length: ", resp)
 	}
 }
