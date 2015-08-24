@@ -35,3 +35,12 @@ func ParseConfig(configPath string) *Config {
 	}
 	return &config
 }
+
+func (this *Config) getTransport(transportType string) string {
+	for _, transport := range this.Transport {
+		if transport[0] == "smtp" {
+			return transport[1] + ":" + transport[2]
+		}
+	}
+	return nil
+}
