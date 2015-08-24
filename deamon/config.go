@@ -7,12 +7,13 @@ import (
 )
 
 type Config struct {
-	Email    EmailConfig `json:"email"`
-	Interval int         `json:"interval"`
-	Debug    bool        `json:"debug"`
-	Pid      string      `json:"pid"`
-	LogFile  string      `json:"logfile"`
-	Checks   [][]string  `json:"checks"`
+	Email     EmailConfig `json:"email"`
+	Transport [][]string  `json:"transport"`
+	Interval  int         `json:"interval"`
+	Debug     bool        `json:"debug"`
+	Pid       string      `json:"pid"`
+	LogFile   string      `json:"logfile"`
+	Checks    [][]string  `json:"checks"`
 }
 
 type EmailConfig struct {

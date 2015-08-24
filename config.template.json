@@ -5,6 +5,9 @@
         "title": "Gogalert: {{.Host}} — {{.AlertName}}",
         "body": "{{.Metric}} {{.Condition}} {{.Threshhold}}"
     },
+    "transport": [
+        ["smtp", "localhost", "25"]
+    ],
     "interval": 60,
     "debug": false,
     "pid": "/var/run/gogalert.pid",
